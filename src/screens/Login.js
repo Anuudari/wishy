@@ -1,4 +1,5 @@
 import React, { useState } from "react";
+
 import {
   Alert,
   Button,
@@ -11,24 +12,26 @@ import {
   TextInput,
   View,
 } from "react-native";
-import { useNavigation } from "@react-navigation/native";
+
 const logo = require("../../assets/logo2.png");
-const facebook = require("../../assets/fb.png");
-const linkedin = require("../../assets/fb.png");
-const tiktok = require("../../assets/fb.png");
 
 export default function LoginForm({ navigation }) {
+  const handleLogin = () => {
+    navigation.navigate("Main", { screen: "Home" });
+  };
+
   const [click, setClick] = useState(false);
-  const { username, setUsername } = useState("");
-  const { password, setPassword } = useState("");
+  const [username, setUsername] = useState("");
+  const [password, setPassword] = useState("");
+
   return (
     <SafeAreaView style={styles.container}>
       <Image source={logo} style={styles.image} resizeMode="contain" />
-      <Text style={styles.title}>Нэвтрэх</Text>
+      <Text style={styles.title}>Login</Text>
       <View style={styles.inputView}>
         <TextInput
           style={styles.input}
-          placeholder="EMAIL OR USERNAME"
+          placeholder="Имэйл"
           value={username}
           onChangeText={setUsername}
           autoCorrect={false}
@@ -36,7 +39,7 @@ export default function LoginForm({ navigation }) {
         />
         <TextInput
           style={styles.input}
-          placeholder="PASSWORD"
+          placeholder="Нууц үг"
           secureTextEntry
           value={password}
           onChangeText={setPassword}
@@ -48,43 +51,26 @@ export default function LoginForm({ navigation }) {
         <View style={styles.switch}>
           <Switch
             value={click}
-            onValueChange={setClick}
+            onValueChange={(value) => {
+              setClick(value);
+            }}
             trackColor={{ true: "green", false: "gray" }}
           />
           <Text style={styles.rememberText}>Remember Me</Text>
         </View>
-        <View>
-          <Pressable onPress={() => Alert.alert("Forget Password!")}>
-            <Text style={styles.forgetText}>Forgot Password?</Text>
-          </Pressable>
-        </View>
+        <Pressable onPress={() => Alert("Нууц үгээ мартчихсан юмуу?!")}>
+          <Text style={styles.forgetText}>Forgot Password?</Text>
+        </Pressable>
       </View>
 
       <View style={styles.buttonView}>
-        <Pressable
-          style={styles.button}
-          onPress={() => navigation.navigate("list")}
-        >
-          <Text style={styles.buttonText}>LOGIN</Text>
-        </Pressable>
-        <Text style={styles.optionsText}>OR LOGIN WITH</Text>
+        <Button title="Нэвтрэх" onPress={handleLogin} color="#9195F6" />
       </View>
 
-      <View style={styles.mediaIcons}>
-        <Pressable onPress={() => navigation.navigate("test")}>
-          <Image source={facebook} style={styles.icons} />
-        </Pressable>
-        <Image source={tiktok} style={styles.icons} />
-        <Image source={linkedin} style={styles.icons} />
-      </View>
-
-      {/* <Text style={styles.footerText}>
-        Don't Have Account?<Text style={styles.signup}> Sign Up</Text>
-      </Text> */}
       <Button
-        style={styles.button}
         title="Бүртгүүлэх"
         onPress={() => navigation.navigate("Register")}
+        color="#9195F6"
       />
     </SafeAreaView>
   );
@@ -92,96 +78,57 @@ export default function LoginForm({ navigation }) {
 
 const styles = StyleSheet.create({
   container: {
+    flex: 1,
     alignItems: "center",
+    justifyContent: "center",
     paddingTop: 70,
+    backgroundColor: "#ffffff",
   },
   image: {
-    height: 160,
-    width: 170,
+    height: 120,
+    width: 130,
+    marginBottom: 20,
   },
   title: {
-    fontSize: 30,
+    fontSize: 25,
     textTransform: "uppercase",
     textAlign: "center",
-    paddingVertical: 40,
-    color: "pink",
+    color: "#FF1493",
+    marginBottom: 20,
   },
   inputView: {
-    gap: 15,
-    width: "100%",
-    paddingHorizontal: 40,
-    marginBottom: 5,
+    width: "80%",
+    marginBottom: 20,
   },
   input: {
     height: 50,
     paddingHorizontal: 20,
-    borderColor: "grey",
+    borderColor: "#ccc",
     borderWidth: 1,
     borderRadius: 7,
+    marginBottom: 15,
   },
   rememberView: {
-    width: "100%",
-    paddingHorizontal: 50,
+    flexDirection: "row",
     justifyContent: "space-between",
     alignItems: "center",
-    flexDirection: "row",
-    marginBottom: 8,
+    width: "80%",
+    marginBottom: 15,
   },
   switch: {
     flexDirection: "row",
-    gap: 1,
-    justifyContent: "center",
     alignItems: "center",
   },
   rememberText: {
     fontSize: 13,
+    color: "#333",
   },
   forgetText: {
     fontSize: 11,
-    color: "pink",
-  },
-  button: {
-    backgroundColor: "#9195F6",
-    height: 45,
-    borderColor: "gray",
-    borderWidth: 1,
-    borderRadius: 5,
-    alignItems: "center",
-    justifyContent: "center",
-  },
-  buttonText: {
-    color: "white",
-    fontSize: 18,
-    fontWeight: "bold",
+    color: "#FF1493",
   },
   buttonView: {
-    width: "100%",
-    paddingHorizontal: 50,
-  },
-  optionsText: {
-    textAlign: "center",
-    paddingVertical: 10,
-    color: "gray",
-    fontSize: 13,
-    marginBottom: 6,
-  },
-  mediaIcons: {
-    flexDirection: "row",
-    gap: 15,
-    alignItems: "center",
-    justifyContent: "center",
-    marginBottom: 23,
-  },
-  icons: {
-    width: 40,
-    height: 40,
-  },
-  footerText: {
-    textAlign: "center",
-    color: "gray",
-  },
-  signup: {
-    color: "pink",
-    fontSize: 13,
+    width: "80%",
+    marginBottom: 20,
   },
 });

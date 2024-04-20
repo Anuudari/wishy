@@ -11,17 +11,19 @@ import {
   TextInput,
   View,
 } from "react-native";
-import { useNavigation } from "@react-navigation/native";
-const logo = require("../../assets/logo2.png");
-const facebook = require("../../assets/fb.png");
-const linkedin = require("../../assets/fb.png");
-const tiktok = require("../../assets/fb.png");
 
-export default function LoginForm({ navigation }) {
+const logo = require("../../assets/logo2.png");
+
+export default function RegisterForm({ navigation }) {
   const [click, setClick] = useState(false);
-  const { username, setUsername } = useState("");
+  const [username, setUsername] = useState("");
   const [email, setEmail] = useState("");
-  const { password, setPassword } = useState("");
+  const [password, setPassword] = useState("");
+
+  const handleRegister = () => {
+    navigation.navigate("Login");
+  };
+
   return (
     <SafeAreaView style={styles.container}>
       <Image source={logo} style={styles.image} resizeMode="contain" />
@@ -55,46 +57,26 @@ export default function LoginForm({ navigation }) {
       </View>
       <View style={styles.rememberView}>
         <View style={styles.switch}>
-          <Switch
-            value={click}
-            onValueChange={setClick}
-            trackColor={{ true: "green", false: "gray" }}
-          />
-          <Text style={styles.rememberText}>Remember Me</Text>
-        </View>
-        <View>
-          <Pressable onPress={() => Alert.alert("Forget Password!")}>
-            <Text style={styles.forgetText}>Forgot Password?</Text>
-          </Pressable>
+          <Text style={styles.rememberText}></Text>
         </View>
       </View>
 
       <View style={styles.buttonView}>
-        <Pressable
-          style={styles.button}
-          onPress={() => navigation.navigate("list")}
-        >
-          <Text style={styles.buttonText}>Бүртгүүлэх</Text>
+        <Pressable style={styles.button} onPress={handleRegister}>
+          <Text color="#9195F6">Бүртгүүлэх</Text>
         </Pressable>
       </View>
-
-      <View style={styles.mediaIcons}>
-        <Image source={facebook} style={styles.icons} />
-        <Image source={tiktok} style={styles.icons} />
-        <Image source={linkedin} style={styles.icons} />
-      </View>
-
-      {/* <Text style={styles.footerText}>
-        Don't Have Account?<Text style={styles.signup}> Sign Up</Text>
-      </Text> */}
     </SafeAreaView>
   );
 }
 
 const styles = StyleSheet.create({
   container: {
+    flex: 1,
     alignItems: "center",
+    justifyContent: "center",
     paddingTop: 70,
+    backgroundColor: "#ffffff",
   },
   image: {
     height: 160,
@@ -105,7 +87,7 @@ const styles = StyleSheet.create({
     textTransform: "uppercase",
     textAlign: "center",
     paddingVertical: 40,
-    color: "pink",
+    color: "#FF1493",
   },
   inputView: {
     gap: 15,
@@ -139,7 +121,7 @@ const styles = StyleSheet.create({
   },
   forgetText: {
     fontSize: 11,
-    color: "pink",
+    color: "#FF1493",
   },
   button: {
     backgroundColor: "#9195F6",
@@ -156,9 +138,10 @@ const styles = StyleSheet.create({
     fontWeight: "bold",
   },
   buttonView: {
-    width: "100%",
-    paddingHorizontal: 50,
+    width: "80%",
+    marginBottom: 20,
   },
+
   optionsText: {
     textAlign: "center",
     paddingVertical: 10,
@@ -176,13 +159,5 @@ const styles = StyleSheet.create({
   icons: {
     width: 40,
     height: 40,
-  },
-  footerText: {
-    textAlign: "center",
-    color: "gray",
-  },
-  signup: {
-    color: "pink",
-    fontSize: 13,
   },
 });
