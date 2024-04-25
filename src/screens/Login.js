@@ -21,12 +21,10 @@ export default function LoginForm({ navigation }) {
   const [password, setPassword] = useState("");
 
   const handleLogin = async () => {
-    console.log(username);
-    console.log(password);
     try {
       const response = await login({
-        username: username,
-        password: password,
+        username,
+        password,
       });
       if (response.status === 200) {
         const userData = response.data.data;
