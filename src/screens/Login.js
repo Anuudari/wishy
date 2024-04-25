@@ -11,9 +11,9 @@ import {
   TextInput,
   View,
 } from "react-native";
-import { login } from "../..action";
+import { login } from "./action";
 
-const logo = require("../../assets/logo2.png");
+import logo from "../../assets/logo.jpg";
 
 export default function LoginForm({ navigation }) {
   const [click, setClick] = useState(false);
@@ -77,9 +77,9 @@ export default function LoginForm({ navigation }) {
         </Pressable>
       </View>
 
-      <View style={styles.buttonView}>
+      <Pressable style={styles.buttonView}>
         <Button title="Нэвтрэх" onPress={handleLogin} color="#9195F6" />
-      </View>
+      </Pressable>
 
       <Button
         title="Бүртгүүлэх"
