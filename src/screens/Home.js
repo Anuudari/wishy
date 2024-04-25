@@ -1,7 +1,6 @@
 import React, { useState, useEffect } from "react";
 import { createBottomTabNavigator } from "@react-navigation/bottom-tabs";
 import { MaterialCommunityIcons } from "@expo/vector-icons";
-import UserInfo from "./UserInfo";
 import { ListItem } from "@rneui/themed";
 import {
   KeyboardAvoidingView,

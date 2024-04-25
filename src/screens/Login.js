@@ -1,5 +1,4 @@
 import React, { useState } from "react";
-
 import {
   Alert,
   Button,
@@ -12,17 +11,32 @@ import {
   TextInput,
   View,
 } from "react-native";
+import { login } from "../..action";
 
 const logo = require("../../assets/logo2.png");
 
 export default function LoginForm({ navigation }) {
-  const handleLogin = () => {
-    navigation.navigate("Main", { screen: "Home" });
-  };
-
   const [click, setClick] = useState(false);
   const [username, setUsername] = useState("");
   const [password, setPassword] = useState("");
+
+  const handleLogin = async () => {
+    console.log(username);
+    console.log(password);
+    try {
+      const response = await login({
+        username: username,
+        password: password,
+      });
+      if (response.status === 200) {
+        const userData = response.data.data;
+        navigation.navigate("Home", { user: userData });
+      }
+    } catch (error) {
+      console.error("Login error:", error);
+    }
+  };
+  //     // navigation.navigate("Main", { screen: "Home" });
 
   return (
     <SafeAreaView style={styles.container}>
@@ -31,7 +45,7 @@ export default function LoginForm({ navigation }) {
       <View style={styles.inputView}>
         <TextInput
           style={styles.input}
-          placeholder="Имэйл"
+          placeholder="Username"
           value={username}
           onChangeText={setUsername}
           autoCorrect={false}
